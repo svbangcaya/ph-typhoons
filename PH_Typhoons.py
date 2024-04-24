@@ -78,9 +78,8 @@ def app():
     look_back = 12  # Number of past months
     n_features = 1  # Number of features in your typhoon data
 
-    model =  tf.keras.Sequential([  # Use Bidirectional LSTM or GRU (comment out the other)
-        #tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(128, return_sequences=True), input_shape=(look_back, n_features)),
-        tf.keras.layers.GRU(128, return_sequences=True, input_shape=(look_back, n_features)),
+    model =  tf.keras.Sequential([  
+        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(128, return_sequences=True), input_shape=(look_back, n_features)),
         tf.keras.layers.Dropout(0.3),
         tf.keras.layers.GRU(64, return_sequences=True),  # Another GRU layer
         tf.keras.layers.Dropout(0.2),
@@ -98,7 +97,7 @@ def app():
     if st.sidebar.button("Start Training"):
         progress_bar = st.progress(0, text="Training the LSTM network, please wait...")           
         # Train the model
-        history = model.fit(x_train, y_train, epochs=200, batch_size=64, validation_data=(x_test, y_test))
+        history = model.fit(x_train, y_train, epochs=500, batch_size=64, validation_data=(x_test, y_test))
 
         fig, ax = plt.subplots()  # Create a figure and an axes
         ax.plot(history.history['loss'], label='Train')  # Plot training loss on ax
