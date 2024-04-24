@@ -75,7 +75,7 @@ def app():
     y_train = y_train.to_numpy()
     y_test = y_test.to_numpy()
 
-    look_back = 12  # Number of past days to consider
+    look_back = 12  # Number of past months
     n_features = 1  # Number of features in your typhoon data
 
     model =  tf.keras.Sequential([  # Use Bidirectional LSTM or GRU (comment out the other)
